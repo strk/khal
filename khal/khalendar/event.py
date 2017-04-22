@@ -29,6 +29,7 @@ import os
 import icalendar
 import pytz
 
+from khal import version
 from ..utils import generate_random_uid
 from .utils import to_naive_utc, to_unix_time, invalid_timezone, delete_instance, \
     is_aware
@@ -311,7 +312,16 @@ class Event(object):
         """
         calendar = icalendar.Calendar()
         calendar.add('version', '2.0')
-        calendar.add('prodid', '-//CALENDARSERVER.ORG//NONSGML Version 1//EN')
+        calendar.add(
+            'prodid',
+            '-//PIMUTILS.ORG//NONSGML khal {}/icalendar {}//EN'.format(
+                # setuptools_scm can generate very long version numbers
+                # we only use the part in front of + to make sure the prodid
+                # won't get broken into two lines
+                version.split('+')[0],
+                icalendar.__version__,
+            ),
+        )
         return calendar
 
     @property
