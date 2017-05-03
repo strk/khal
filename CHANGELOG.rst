@@ -13,6 +13,7 @@ not released yet
 
 * FIX khal new -i does not crash anymore
 * FIX make tests run with latest pytz (2017.2)
+* FIX don't crash on updated vcards
 
 0.9.4
 =====
